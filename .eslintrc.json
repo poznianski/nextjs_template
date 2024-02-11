@@ -1,4 +1,17 @@
 {
-  "extends": "next/core-web-vitals",
-  "plugins": ["react", "@typescript-eslint"],
+  "ignorePatterns": ["next.config.js", "postcss.config.js"],
+  "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended"],
+  "plugins": ["react", "@typescript-eslint", "import"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "import/no-unresolved": "error"
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  }
 }
