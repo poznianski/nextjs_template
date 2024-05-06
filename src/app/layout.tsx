@@ -1,8 +1,9 @@
+import './globals.scss'
+
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import Head from 'next/head'
 import React from 'react'
-
-import './globals.scss'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,7 +19,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-bg-main text-text-main p-5`}>
+      <Head>
+        <link
+          rel="icon"
+          href="/favicon.ico"
+          sizes="any"
+        />
+      </Head>
+      <body className={`${inter.className} bg-bg-main p-5 text-text-main`}>
         {children}
       </body>
     </html>
