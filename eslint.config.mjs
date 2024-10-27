@@ -1,61 +1,49 @@
-import { fixupConfigRules, fixupPluginRules } from "@eslint/compat";
-import react from "eslint-plugin-react";
-import typescriptEslint from "@typescript-eslint/eslint-plugin";
-import _import from "eslint-plugin-import";
-import simpleImportSort from "eslint-plugin-simple-import-sort";
-import tsParser from "@typescript-eslint/parser";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import js from "@eslint/js";
-import { FlatCompat } from "@eslint/eslintrc";
+import js from '@eslint/js'
+import eslintReact from 'eslint-plugin-react'
+import eslintReactHooks from 'eslint-plugin-react-hooks'
+import globals from 'globals'
+import tseslint from 'typescript-eslint'
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
-});
-
-export default [{
-    ignores: ["**/next.config.js", "**/postcss.config.js", "**/babel.config.js"],
-}, ...fixupConfigRules(compat.extends(
-    "next/core-web-vitals",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:import/recommended",
-    "plugin:import/typescript",
-)), {
+/** @type {import('eslint').Linter.FlatConfig[]} */
+export default tseslint.config(
+  {
     plugins: {
-        react,
-        "@typescript-eslint": fixupPluginRules(typescriptEslint),
-        import: fixupPluginRules(_import),
-        "simple-import-sort": simpleImportSort,
+      '@typescript-eslint': tseslint.plugin,
+      react: eslintReact,
+      'react-hooks': eslintReactHooks,
+      // prettier: prettierPlugin,
     },
-
+  },
+  {
+    ignores: ['dist', 'node_modules', 'coverage', 'eslint.config.mjs'],
+  },
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  {
     languageOptions: {
-        parser: tsParser,
-        ecmaVersion: "latest",
-        sourceType: "module",
-
-        parserOptions: {
-            project: "./tsconfig.json",
-        },
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+        ...globals.es2020,
+      },
+      parserOptions: {
+        project: ['tsconfig.json'],
+      },
     },
-
-    settings: {
-        "import/resolver": {
-            typescript: {},
-        },
-    },
-
+  },
+  {
+    files: ['**/*.{ts,tsx}'],
     rules: {
-        "simple-import-sort/imports": "error",
-        "simple-import-sort/exports": "error",
-        "import/no-unresolved": "error",
-        "@typescript-eslint/no-explicit-any": "off",
-
-        "@typescript-eslint/no-unused-vars": ["error", {
-            argsIgnorePattern: "^_",
-        }],
+      // ...prettierPlugin.configs.recommended.rules,
+      'prefer-const': 'error',
+      'react/jsx-curly-brace-presence': [
+        'warn',
+        {
+          props: 'never',
+          children: 'never',
+        },
+      ],
+      'react/self-closing-comp': ['error', { component: true, html: true }],
     },
-}];
+  },
+)

@@ -1,32 +1,47 @@
-import './globals.scss'
-
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import Head from 'next/head'
 import React from 'react'
+
+import { CONSTANTS } from '@/app/utils/constants'
+
+import './styles/globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Title',
-  description: 'Description',
+  metadataBase: new URL(CONSTANTS.SITE_URL),
+  title: {
+    default: 'Example Title',
+    template: '%s | Addition',
+  },
+  description: 'example description',
+  icons: {
+    icon: '/images/icons/favicon.ico',
+  },
+  openGraph: {
+    type: 'website',
+    url: CONSTANTS.SITE_URL,
+    siteName: 'Example',
+    images: [
+      {
+        url: `${CONSTANTS.SITE_URL}/images/opengraph-image.png`,
+        alt: CONSTANTS.SITE_URL,
+      },
+    ],
+  },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <Head>
-        <link
-          rel="icon"
-          href="/favicon.ico"
-          sizes="any"
-        />
-      </Head>
-      <body className={`${inter.className} bg-bg-main p-5 text-text-main`}>
+    <html
+      lang="en"
+      className={`${inter.className} min-h-screen`}
+    >
+      <body className="text-text-primary bg-bg-primary mb-10 min-h-screen overflow-y-scroll font-sans text-base">
         {children}
       </body>
     </html>
