@@ -1,0 +1,84 @@
+:root {
+  /* Serene and Trustworthy */
+  --st-primary: #a3cef1;
+  --st-secondary: #2a4d69;
+  --st-accent: #61c0bf;
+  --st-background: #f1f1f1;
+  --st-text: #333333;
+
+  /* Professional and Warm */
+  --pw-primary: #004080;
+  --pw-secondary: #f5f5dc;
+  --pw-accent: #ffd700;
+  --pw-background: #ffffff;
+  --pw-text: #3b3b3b;
+
+  /* Modern and Inviting */
+  --mi-primary: #2e8b57;
+  --mi-secondary: #9dc183;
+  --mi-accent: #ff6f61;
+  --mi-background: #fff5e6;
+  --mi-text: #4a4a4a;
+
+  /* Calm and Uplifting */
+  --cu-primary: #87ceeb;
+  --cu-secondary: #ffdab9;
+  --cu-accent: #fffacd;
+  --cu-background: #ffffff;
+  --cu-text: #708090;
+
+  /* Balanced and Trustworthy */
+  --bt-primary: #008080;
+  --bt-secondary: #ffc0cb;
+  --bt-accent: #d3d3d3;
+  --bt-background: #ffffff;
+  --bt-text: #000000;
+
+  /* Set default theme */
+  --primary: var(--st-primary);
+  --secondary: var(--st-secondary);
+  --accent: var(--st-accent);
+  --background: var(--st-background);
+  --text: var(--st-text);
+}
+
+/* Theme Classes */
+.theme-serene {
+  --primary: var(--st-primary);
+  --secondary: var(--st-secondary);
+  --accent: var(--st-accent);
+  --background: var(--st-background);
+  --text: var(--st-text);
+}
+
+.theme-professional {
+  --primary: var(--pw-primary);
+  --secondary: var(--pw-secondary);
+  --accent: var(--pw-accent);
+  --background: var(--pw-background);
+  --text: var(--pw-text);
+}
+
+.theme-modern {
+  --primary: var(--mi-primary);
+  --secondary: var(--mi-secondary);
+  --accent: var(--mi-accent);
+  --background: var(--mi-background);
+  --text: var(--mi-text);
+}
+
+.theme-calm {
+  --primary: var(--cu-primary);
+  --secondary: var(--cu-secondary);
+  --accent: var(--cu-accent);
+  --background: var(--cu-background);
+  --text: var(--cu-text);
+}
+
+.theme-balanced {
+  --primary: var(--bt-primary);
+  --secondary: var(--bt-secondary);
+  --accent: var(--bt-accent);
+  --background: var(--bt-background);
+  --text: var(--bt-text);
+}
