@@ -1,9 +1,3 @@
-import { ThemeToggle } from '@/app/components/ThemeToggle/ThemeToggle'
-
 export default function Home() {
-  return (
-    <main className="bg-primary min-h-screen">
-      <ThemeToggle />
-    </main>
-  )
+  return <main className="bg-background min-h-screen">Hello world</main>
 }
