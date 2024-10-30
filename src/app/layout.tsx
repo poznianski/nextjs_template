@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import React from 'react'
 
+import { ThemeProvider } from '@/app/contexts/ThemeContext'
 import { CONSTANTS } from '@/app/utils/constants'
 
 import './styles/globals.css'
@@ -41,8 +42,8 @@ export default async function RootLayout({
       lang="en"
       className={`${inter.className} min-h-screen`}
     >
-      <body className="text-text-primary bg-bg-primary mb-10 min-h-screen overflow-y-scroll font-sans text-base">
-        {children}
+      <body className="mb-10 min-h-screen overflow-y-scroll">
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   )
