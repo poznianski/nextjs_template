@@ -1,64 +1,42 @@
-import js from '@eslint/js'
-import eslintNext from '@next/eslint-plugin-next'
-import eslintImport from 'eslint-plugin-import'
-import eslintReact from 'eslint-plugin-react'
-import eslintReactHooks from 'eslint-plugin-react-hooks'
-import globals from 'globals'
-import tseslint from 'typescript-eslint'
+import { FlatCompat } from '@eslint/eslintrc'
+import { dirname } from 'path'
+import { fileURLToPath } from 'url'
 
-/** @type {import('eslint').Linter.FlatConfig[]} */
-export default tseslint.config(
-  {
-    plugins: {
-      '@typescript-eslint': tseslint.plugin,
-      react: eslintReact,
-      'react-hooks': eslintReactHooks,
-      import: eslintImport,
-      '@next/next': eslintNext,
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+  recommendedConfig: {
+    env: {
+      es2022: true,
+      node: true,
     },
   },
+})
+
+const eslintConfig = [
+  ...compat.extends(
+    'next/core-web-vitals',
+    'eslint:recommended',
+    'next/typescript',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
+  ),
   {
     ignores: ['dist', 'node_modules', 'coverage', 'eslint.config.mjs'],
-  },
-  js.configs.recommended,
-  ...tseslint.configs.recommended,
-  {
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-        ...globals.node,
-        ...globals.es2020,
-      },
-      parserOptions: {
-        project: ['tsconfig.json'],
-      },
-    },
-  },
-  {
-    settings: {
-      'import/parsers': {
-        '@typescript-eslint/parser': ['.ts', '.tsx'],
-      },
-      'import/resolver': {
-        typescript: {
-          alwaysTryTypes: true,
-          project: ['tsconfig.json'],
-        },
-        node: true,
-      },
-    },
   },
   {
     files: ['**/*.{ts,tsx}'],
     rules: {
       'prefer-const': 'error',
-
       'import/no-unresolved': 'error',
       '@typescript-eslint/no-explicit-any': 'off',
-
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
-
+      'react/react-in-jsx-scope': 'off',
       'react/jsx-curly-brace-presence': [
         'warn',
         {
@@ -73,7 +51,6 @@ export default tseslint.config(
           argsIgnorePattern: '^_',
         },
       ],
-
       '@next/next/no-html-link-for-pages': 'error',
       '@next/next/no-img-element': 'error',
       '@next/next/no-unwanted-polyfillio': 'warn',
@@ -85,4 +62,6 @@ export default tseslint.config(
       '@next/next/no-title-in-document-head': 'warn',
     },
   },
-)
+]
+
+export default eslintConfig

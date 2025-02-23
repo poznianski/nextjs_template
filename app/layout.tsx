@@ -4,7 +4,7 @@ import React from 'react'
 
 import { CONSTANTS } from '@/app/utils/constants'
 
-import './styles/globals.css'
+import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -41,7 +41,7 @@ export default async function RootLayout({
       lang="en"
       className={`${inter.className} min-h-screen`}
     >
-      <body className="theme-modern text-text-primary mb-10 overflow-y-scroll">
+      <body className="theme-modern mb-10 overflow-y-scroll text-text-primary">
         {children}
       </body>
     </html>
